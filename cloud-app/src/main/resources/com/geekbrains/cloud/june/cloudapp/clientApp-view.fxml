@@ -6,14 +6,15 @@
 <?import javafx.scene.layout.VBox?>
 
 
+<?import javafx.scene.control.TextField?>
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.geekbrains.cloud.june.cloudapp.HelloController">
+      fx:controller="com.geekbrains.cloud.june.cloudapp.ClientAppController">
     <HBox>
         <ListView fx:id="clientView" prefHeight="344.0" prefWidth="226.0"/>
         <ListView fx:id="serverView" prefHeight="344.0" prefWidth="226.0"/>
     </HBox>
     <HBox prefHeight="31.0" prefWidth="452.0">
-        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="69.0" text="To server"/>
+        <TextField fx:id="msgField" HBox.hgrow="ALWAYS" promptText="Файл для отправки на сервер.." onAction="#sendFile"/>
         <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="83.0" text="From server"/>
     </HBox>
 </VBox>
