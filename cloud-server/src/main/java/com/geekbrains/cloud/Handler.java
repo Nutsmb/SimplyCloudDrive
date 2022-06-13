@@ -1,9 +1,6 @@
 package com.geekbrains.cloud;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class Handler implements Runnable{
@@ -36,6 +33,14 @@ public class Handler implements Runnable{
                         }
                     }
                     outputStream.writeUTF("File uploaded successfully!");
+                } else if (command.equals("#getServerFilesList")) {
+                    String[] list = getFilesList(directory);
+                    int listSize = list.length;
+                    outputStream.writeUTF("#ServerFilesList");
+                    outputStream.writeInt(listSize);
+                    for (String s : list) {
+                        outputStream.writeUTF(s);
+                    }
                 }
             }
         }
@@ -50,5 +55,23 @@ public class Handler implements Runnable{
                 e.printStackTrace();
             }
         }
+    }
+
+    public String[] getFilesList(String catalogName) {
+        File catalog = new File(catalogName);
+        String[] list = new String[0];
+        if (catalog.isDirectory()) {
+            list = catalog.list();
+            /*if (list != null) {
+                for (String fileName : list) {
+                    File file = new File(catalogName + "/" + fileName);
+                    if (file.isDirectory()) {
+                        System.out.printf("\t%s каталог%n", fileName);
+                    } else {
+                        System.out.printf("\t%s файл%n", fileName);
+                    }
+                }*/
+        }
+        return list;
     }
 }
